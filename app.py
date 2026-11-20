@@ -402,6 +402,10 @@ def render_chart(st, go, key, rows, latest, first, last, today):
     st.caption(f"{indicator.frequency} · [{indicator.source}]({indicator.url})")
     st.caption(indicator.description)
 
+def make_refresh_lock():
+    from threading import Lock
+
+    return Lock()
 
 def dashboard():
     import plotly.graph_objects as go
@@ -409,6 +413,25 @@ def dashboard():
 
     st.set_page_config(page_title="Brazil Economy Monitor", page_icon="🇧🇷", layout="wide")
     st.title("Brazil Economy Monitor")
+    refresh_lock = st.cache_resource(make_refresh_lock)()
+    
+    if st.button("Refresh data now", type="primary"):
+        if refresh_lock.acquire(blocking=False):
+            try:
+                with st.spinner("Fetching the latest data from all six official sources…"):
+                    status = refresh()
+            finally:
+                refresh_lock.release()
+
+            if status == 0:
+                st.success("Refresh complete. The charts show the latest available data.")
+            else:
+                st.error(
+                    "The refresh failed. Any previous snapshot was kept. "
+                    "See the Streamlit app logs for details."
+                )
+        else:
+            st.info("A refresh is already running. Reload the page in a moment.")
     try:
         series, latest, refreshed = read_snapshot()
     except FileNotFoundError:
