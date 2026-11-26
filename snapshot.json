@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-11-25T21:49:02.573601+00:00",
-  "as_of_date": "2026-11-25",
+  "refreshed_at": "2026-11-26T21:41:28.193798+00:00",
+  "as_of_date": "2026-11-26",
   "series": {
     "gdp": [
       {
@@ -1614,7 +1614,7 @@
       {
         "period": "2026-11-01",
         "value": 13.75,
-        "last_daily_date": "2026-11-25",
+        "last_daily_date": "2026-11-26",
         "partial": true
       }
     ],
@@ -3039,8 +3039,8 @@
       },
       {
         "period": "2026-11-01",
-        "value": 5.6742,
-        "last_daily_date": "2026-11-25",
+        "value": 5.678341176470588,
+        "last_daily_date": "2026-11-26",
         "partial": true
       }
     ],
